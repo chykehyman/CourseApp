@@ -1,18 +1,18 @@
 const path = require('path');
 const webpack = require('webpack');
-const HtmlWebPackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 
 module.exports = (env, argv) => ({
   entry: [
     'react-dev-utils/webpackHotDevClient',
-    path.resolve(__dirname, './src/index.js')
+    path.resolve(__dirname, './src/Index.jsx')
   ],
   output: {
     path: path.resolve(__dirname, './build'),
-    filename: '[name].[hash].js',
+    filename: '[name].[hash].js'
   },
   devServer: {
     contentBase: path.join(__dirname, 'public'),
@@ -26,29 +26,29 @@ module.exports = (env, argv) => ({
       {
         test: /\.(js|jsx)$/,
         include: [
-          path.resolve(__dirname, "src")
+          path.resolve(__dirname, 'src')
         ],
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader"
+          loader: 'babel-loader'
         }
       },
       {
         test: /\.(css|scss)$/,
         include: [
-          path.resolve(__dirname, "public")
+          path.resolve(__dirname, 'public')
         ],
         use: [
           'css-hot-loader',
           MiniCssExtractPlugin.loader,
-          'css-loader',
-        ],
+          'css-loader'
+        ]
       },
       {
         test: /\.html$/,
         use: [
           {
-            loader: "html-loader"
+            loader: 'html-loader'
           }
         ]
       },
@@ -64,21 +64,21 @@ module.exports = (env, argv) => ({
   },
   resolve: {
     modules: [
-      "node_modules",
-      path.resolve(__dirname, "src")
+      'node_modules',
+      path.resolve(__dirname, 'src')
     ],
-    extensions: [".js", ".json", ".jsx", ".css", ".scss"]
+    extensions: ['.js', '.json', '.jsx', '.css', '.scss']
   },
   plugins: [
-    new CleanWebpackPlugin('build', {} ),
+    new CleanWebpackPlugin('build', {}),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebPackPlugin({
-      template: "./public/index.html",
-      filename: "./index.html"
+      template: './public/index.html',
+      filename: './index.html'
     }),
     new MiniCssExtractPlugin({
-      filename: argv.mode === 'production' ? "stlye.[hash].css" : "[name].css",
-      chunkFilename: "style.[id].css"
+      filename: argv.mode === 'production' ? 'stlye.[hash].css' : '[name].css',
+      chunkFilename: 'style.[id].css'
     })
   ]
 });
