@@ -35,9 +35,6 @@ module.exports = (env, argv) => ({
       },
       {
         test: /\.(css|scss)$/,
-        include: [
-          path.resolve(__dirname, 'public')
-        ],
         use: [
           'css-hot-loader',
           MiniCssExtractPlugin.loader,
