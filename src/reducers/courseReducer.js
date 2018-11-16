@@ -19,6 +19,11 @@ export default (state = initialState.coursesState, action) => {
           action.course
         ]
       };
+    case type.DELETE_COURSE_SUCCESS:
+      return {
+        ...state,
+        allCourses: [...state.allCourses.filter(course => course.id !== action.courseId)]
+      };
     default:
       return state;
   }

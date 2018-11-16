@@ -12,16 +12,19 @@ const propTypes = {
     allCourses: PropTypes.array.isRequired,
     isLoading: PropTypes.bool.isRequired
   }).isRequired,
-  actions: PropTypes.shape().isRequired,
+  actions: PropTypes.shape({
+    loadCourses: PropTypes.func.isRequired,
+    deleteCourse: PropTypes.func.isRequired
+  }).isRequired,
   history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired
 };
 
 class CoursesPage extends Component {
-  componentDidMount() {
-    const { actions, courses: { allCourses } } = this.props;
+ actions = this.props.actions;
 
-    actions.loadCourses();
-  }
+ componentDidMount() {
+   this.actions.loadCourses();
+ }
 
   showAddCoursePage = () => {
     const { history } = this.props;
@@ -32,6 +35,19 @@ class CoursesPage extends Component {
     <div key={index}>{course.title}</div>
   );
 
+  handleOnCourseDelete = (courseId) => {
+    this.actions.deleteCourse(courseId);
+  };
+
+  renderCoursesTable = (allCourses) => {
+    if (allCourses.length > 0) {
+      return <CourseList courses={allCourses} handleDelete={this.handleOnCourseDelete} />
+    }
+    return (
+      <div>There are no available courses</div>
+    );
+  }
+
   render() {
     const { courses: { allCourses, isLoading } } = this.props;
     return (
@@ -40,7 +56,7 @@ class CoursesPage extends Component {
           <h1>Courses</h1>
           <button
             type="button"
-            className="btn btn-outline-info add-course-button btn-sm"
+            className="btn btn-outline-primary add-course-button btn-sm"
             onClick={this.showAddCoursePage}>
             Add Course
           </button>
@@ -51,7 +67,7 @@ class CoursesPage extends Component {
               <Loader size="30" className="loader-component" />
             </div>
           )
-          : <CourseList courses={allCourses} />
+          : this.renderCoursesTable(allCourses)
         }
       </div>
     );

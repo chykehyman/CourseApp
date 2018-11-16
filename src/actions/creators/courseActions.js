@@ -30,6 +30,13 @@ const updateCourseSuccess = course => (
   }
 );
 
+const deleteCourseSuccess = courseId => (
+  {
+    type: types.DELETE_COURSE_SUCCESS,
+    courseId
+  }
+);
+
 export const loadCourses = () => (
   (dispatch) => {
     dispatch(ajaxCallLoader(true));
@@ -70,6 +77,21 @@ export const saveCourse = course => (
         } else {
           dispatch(createCourseSuccess(savedCourse));
         }
+        dispatch(ajaxCallLoader(false));
+      })
+      .catch((error) => {
+        dispatch(ajaxCallLoader(false));
+        throw (error);
+      });
+  }
+);
+
+export const deleteCourse = courseId => (
+  (dispatch) => {
+    dispatch(ajaxCallLoader(true));
+    return coursesApi.deleteCourse(courseId)
+      .then(() => {
+        dispatch(deleteCourseSuccess(courseId));
         dispatch(ajaxCallLoader(false));
       })
       .catch((error) => {
