@@ -4,10 +4,11 @@ import CourseListRow from './CourseListRow';
 
 
 const propTypes = {
-  courses: PropTypes.array.isRequired
+  courses: PropTypes.array.isRequired,
+  handleDelete: PropTypes.func.isRequired
 };
 
-const CourseList = ({ courses }) => (
+const CourseList = ({ courses, handleDelete }) => (
   <table className="table table-hover">
     <thead>
       <tr>
@@ -16,10 +17,15 @@ const CourseList = ({ courses }) => (
         <th>Author</th>
         <th>Category</th>
         <th>Length</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      {courses.map(course => <CourseListRow key={course.id} course={course} />)}
+      {courses
+        .map(course => (
+          <CourseListRow key={course.id} course={course} handleDelete={handleDelete} />
+        ))
+      }
     </tbody>
   </table>
 );
