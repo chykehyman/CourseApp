@@ -1,4 +1,38 @@
 body {
-  background-color: green;
-  color: white;
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+.nav {
+  margin-left: -15px;
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+}
+
+.loader-container {
+  display: flex;
+  height: 200px;
+  justify-content: center;
+  align-items: center;
+}
+
+.top-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  margin-top: 30px;
+}
+
+.add-course-button {
+  padding: 0 7px;
+}
+
+.table {
+  margin-top: 50px;
+}
+
+.table th {
+  border-top: none;
 }
