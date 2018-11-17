@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import Loader from 'react-md-spinner';
+import _ from 'lodash';
 
 import CourseList from './CourseList';
 import * as courseActions from '../../actions/creators/courseActions';
@@ -41,7 +42,7 @@ class CoursesPage extends Component {
 
   renderCoursesTable = (allCourses) => {
     if (allCourses.length > 0) {
-      return <CourseList courses={allCourses} handleDelete={this.handleOnCourseDelete} />
+      return <CourseList courses={allCourses} handleDelete={this.handleOnCourseDelete} />;
     }
     return (
       <div>There are no available courses</div>
@@ -74,9 +75,12 @@ class CoursesPage extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  courses: state.courses
-});
+const mapStateToProps = ({ courses }) => {
+  const sortedCourses = _.sortBy(
+    [...courses.allCourses], course => course.title.toLowerCase()
+  );
+  return ({ courses: { ...courses, allCourses: sortedCourses } });
+};
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(courseActions, dispatch)

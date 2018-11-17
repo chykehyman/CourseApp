@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 
 const Header = () => (
-  <nav className="nav justify-content-start">
+  <nav>
     <Link to="/" className="nav-link" activeclassname="active">Home</Link>
     {' | '}
     <Link to="/courses" className="nav-link" activeclassname="active">Courses</Link>
