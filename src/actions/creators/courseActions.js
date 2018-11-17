@@ -100,3 +100,10 @@ export const deleteCourse = courseId => (
       });
   }
 );
+
+export const coursesPageChange = page => (
+  dispatch => dispatch({
+    type: types.COURSES_PAGE_CHANGE,
+    page
+  })
+);

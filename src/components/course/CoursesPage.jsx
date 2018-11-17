@@ -4,14 +4,19 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import Loader from 'react-md-spinner';
 import _ from 'lodash';
+import ReactPaginate from 'react-paginate';
 
 import CourseList from './CourseList';
 import * as courseActions from '../../actions/creators/courseActions';
+import pagination from '../../helpers/pagination';
 
 const propTypes = {
   courses: PropTypes.shape({
     allCourses: PropTypes.array.isRequired,
-    isLoading: PropTypes.bool.isRequired
+    isLoading: PropTypes.bool.isRequired,
+    pageCount: PropTypes.number.isRequired,
+    pageSize: PropTypes.number.isRequired,
+    currentPage: PropTypes.number.isRequired
   }).isRequired,
   actions: PropTypes.shape({
     loadCourses: PropTypes.func.isRequired,
@@ -27,6 +32,12 @@ class CoursesPage extends Component {
    this.actions.loadCourses();
  }
 
+ componentWillUpdate({ courses: { pageSize, pageCount, currentPage } }) {
+   if (pageSize === 0 && currentPage > 1 && pageCount >= 1) {
+     this.actions.coursesPageChange(currentPage - 1);
+   }
+ }
+
   showAddCoursePage = () => {
     const { history } = this.props;
     history.push('/course');
@@ -40,9 +51,18 @@ class CoursesPage extends Component {
     this.actions.deleteCourse(courseId);
   };
 
-  renderCoursesTable = (allCourses) => {
-    if (allCourses.length > 0) {
-      return <CourseList courses={allCourses} handleDelete={this.handleOnCourseDelete} />;
+  handleOnPageChange = ({ selected }) => {
+    const pageToLoad = selected + 1;
+    this.actions.coursesPageChange(pageToLoad);
+  }
+
+  renderCoursesTable = (paginatedCourses) => {
+    if (paginatedCourses.length > 0) {
+      return (
+        <CourseList
+          courses={paginatedCourses}
+          handleDelete={this.handleOnCourseDelete} />
+      );
     }
     return (
       <div>There are no available courses</div>
@@ -50,7 +70,14 @@ class CoursesPage extends Component {
   }
 
   render() {
-    const { courses: { allCourses, isLoading } } = this.props;
+    const {
+      courses: {
+        allCourses,
+        isLoading,
+        currentPage,
+        pageCount
+      }
+    } = this.props;
     return (
       <div>
         <div className="top-container">
@@ -70,6 +97,23 @@ class CoursesPage extends Component {
           )
           : this.renderCoursesTable(allCourses)
         }
+        {allCourses.length > 0 && (
+          <div className="text-center">
+            <ReactPaginate
+              breakLabel="..."
+              breakClassName="break-me"
+              pageCount={pageCount}
+              initialPage={currentPage - 1}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={3}
+              onPageChange={this.handleOnPageChange}
+              disableInitialCallback
+              containerClassName="pagination"
+              subContainerClassName="pages pagination"
+              activeClassName="active"
+            />
+          </div>
+        )}
       </div>
     );
   }
@@ -79,7 +123,17 @@ const mapStateToProps = ({ courses }) => {
   const sortedCourses = _.sortBy(
     [...courses.allCourses], course => course.title.toLowerCase()
   );
-  return ({ courses: { ...courses, allCourses: sortedCourses } });
+
+  const data = pagination(sortedCourses, courses.currentPage);
+
+  return ({
+    courses: {
+      ...courses,
+      allCourses: data.paginatedCourses,
+      pageCount: data.totalPageCount,
+      pageSize: data.pageItemsSize
+    }
+  });
 };
 
 const mapDispatchToProps = dispatch => ({

@@ -2,7 +2,8 @@ export default {
   coursesState: {
     allCourses: [],
     selectedCourse: {},
-    isLoading: false
+    isLoading: false,
+    currentPage: 1
   },
   authorsState: {
     allAuthors: []
