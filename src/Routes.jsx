@@ -6,6 +6,7 @@ import HomePage from './components/home/HomePage';
 import CoursesPage from './components/course/CoursesPage';
 import AboutPage from './components/about/AboutPage';
 import ManageCoursePage from './components/course/ManageCoursePage';
+import NoPageFound from './components/common/NotFoundPage';
 
 
 const Routes = () => (
@@ -13,11 +14,12 @@ const Routes = () => (
     <Fragment>
       <Header />
       <Switch>
-        <Route path="/course/:id" component={ManageCoursePage} />
-        <Route path="/course" component={ManageCoursePage} />
-        <Route path="/courses" component={CoursesPage} />
+        <Route exact path="/" component={HomePage} />
         <Route path="/about" component={AboutPage} />
-        <Route path="/" component={HomePage} />
+        <Route exact path="/course/:id" component={ManageCoursePage} />
+        <Route exact path="/course" component={ManageCoursePage} />
+        <Route exact path="/courses" component={CoursesPage} />
+        <Route component={NoPageFound} />
       </Switch>
     </Fragment>
   </BrowserRouter>

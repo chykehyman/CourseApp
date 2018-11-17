@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import { Prompt } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import Loader from 'react-md-spinner';
@@ -37,7 +38,8 @@ class ManageCoursePage extends Component {
       length: '',
       category: ''
     },
-    errors: {}
+    errors: {},
+    isBlocking: false
   };
 
   state = this.initialFormState;
@@ -72,7 +74,8 @@ class ManageCoursePage extends Component {
     const { name, value } = event.target;
     this.setState(prevState => ({
       ...prevState,
-      course: { ...prevState.course, [name]: value }
+      course: { ...prevState.course, [name]: value },
+      isBlocking: true
     }));
   };
 
@@ -82,16 +85,26 @@ class ManageCoursePage extends Component {
 
     event.preventDefault();
 
-    actions.saveCourse(course);
-    toastr.success('Course Saved');
-    history.push('/courses');
+    actions.saveCourse(course)
+      .then(() => {
+        this.setState(prevState => ({ isBlocking: !prevState }), () => {
+          toastr.success('Course Saved');
+          history.push('/courses');
+        });
+      });
   };
 
   render() {
-    const { course, errors } = this.state;
+    const { course, errors, isBlocking } = this.state;
     const { allAuthors, course: { isLoading } } = this.props;
     return (
-      <div>
+      <Fragment>
+        <Prompt
+          when={isBlocking}
+          message={
+            location => `Are you sure you want to go to ${location.pathname}`
+          }
+        />
         <div className="top-container">
           <h1>Manage Course</h1>
         </div>
@@ -111,7 +124,7 @@ class ManageCoursePage extends Component {
               errors={errors} />
           )
         }
-      </div>
+      </Fragment>
     );
   }
 }
