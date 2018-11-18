@@ -8,9 +8,12 @@ import configureStore from './store/store.config';
 import '../node_modules/bootstrap/dist/css/bootstrap.min';
 import '../public/main';
 import '../node_modules/toastr/build/toastr.min.css';
+import { loadCourses } from './actions/creators/courseActions';
 
 
 const store = configureStore();
+
+store.dispatch(loadCourses());
 
 ReactDOM.render(
   <Provider store={store}>

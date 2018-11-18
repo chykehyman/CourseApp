@@ -19,18 +19,14 @@ const propTypes = {
     currentPage: PropTypes.number.isRequired
   }).isRequired,
   actions: PropTypes.shape({
-    loadCourses: PropTypes.func.isRequired,
-    deleteCourse: PropTypes.func.isRequired
+    deleteCourse: PropTypes.func.isRequired,
+    coursesPageChange: PropTypes.func.isRequired
   }).isRequired,
   history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired
 };
 
 class CoursesPage extends Component {
  actions = this.props.actions;
-
- componentDidMount() {
-   this.actions.loadCourses();
- }
 
  componentWillUpdate({ courses: { pageSize, pageCount, currentPage } }) {
    if (pageSize === 0 && currentPage > 1 && pageCount >= 1) {
