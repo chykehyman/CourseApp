@@ -29,7 +29,7 @@ const SelectInput = ({
       name={name}
       value={value}
       onChange={onChange}>
-        <option value={defaultOption}>{defaultOption}</option>
+        <option value="">{defaultOption}</option>
         {options.map(option => (
           <option key={option.id} value={option.id}>
             {`${option.firstName} ${option.lastName}`}
