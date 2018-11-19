@@ -6,6 +6,7 @@ const propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  onFocus: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
   value: PropTypes.string,
   error: PropTypes.string
@@ -18,16 +19,16 @@ const defaultProps = {
 };
 
 const TextInput = ({
-  name, label, onChange, placeholder, value, error
+  name, label, onChange, onFocus, placeholder, value, error
 }) => {
-  let wrapperClass = 'form-group';
+  let wrapperClass = 'field';
   if (error && error.length > 0) {
     wrapperClass += ' has-error';
   }
   return (
-    <div className={wrapperClass}>
+    <div className="form-group">
       <label htmlFor={name}>{label}</label>
-      <div className="field">
+      <div className={wrapperClass}>
         <input
           type="text"
           className="form-control"
@@ -35,8 +36,11 @@ const TextInput = ({
           id={name}
           placeholder={placeholder}
           value={value}
-          onChange={onChange} />
+          onChange={onChange}
+          onFocus={onFocus}
+          autoComplete="off" />
       </div>
+      {error && <div className="field-error">{error}</div>}
     </div>
   );
 };

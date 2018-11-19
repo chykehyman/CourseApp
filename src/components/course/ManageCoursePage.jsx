@@ -10,6 +10,8 @@ import CourseForm from './CourseForm';
 import * as courseActions from '../../actions/creators/courseActions';
 import * as authorActions from '../../actions/creators/authorActions';
 
+import { validateFormData } from '../../helpers/validations';
+
 
 const propTypes = {
   actions: PropTypes.shape({
@@ -42,7 +44,7 @@ class ManageCoursePage extends Component {
     isBlocking: false
   };
 
-  state = this.initialFormState;
+  state = { ...this.initialFormState };
 
   componentDidMount() {
     const { match, actions } = this.props;
@@ -63,12 +65,10 @@ class ManageCoursePage extends Component {
       }));
     } else {
       this.setState(prevState => ({
-        ...prevState,
-        course: {}
+        ...prevState
       }));
     }
   }
-
 
   handleOnChange = (event) => {
     const { name, value } = event.target;
@@ -79,19 +79,38 @@ class ManageCoursePage extends Component {
     }));
   };
 
+  isValid = (course) => {
+    const { errors, isValid } = validateFormData(course);
+    if (!isValid) {
+      this.setState(() => ({
+        errors
+      }));
+    }
+    return isValid;
+  }
+
+  handleOnFocus = (event) => {
+    event.persist();
+    this.setState(prevState => ({
+      errors: { ...prevState.errors, [event.target.name]: '' }
+    }));
+  }
+
   handleOnSave = (event) => {
     const { actions, history } = this.props;
     const { course } = this.state;
 
     event.preventDefault();
 
-    actions.saveCourse(course)
-      .then(() => {
-        this.setState(prevState => ({ isBlocking: !prevState }), () => {
-          toastr.success('Course Saved');
-          history.push('/courses');
+    if (this.isValid(course)) {
+      actions.saveCourse(course)
+        .then(() => {
+          this.setState(prevState => ({ isBlocking: !prevState }), () => {
+            toastr.success('Course Saved');
+            history.push('/courses');
+          });
         });
-      });
+    }
   };
 
   render() {
@@ -120,6 +139,7 @@ class ManageCoursePage extends Component {
               course={course}
               handleOnChange={this.handleOnChange}
               handleOnSave={this.handleOnSave}
+              handleOnFocus={this.handleOnFocus}
               isLoading={isLoading}
               errors={errors} />
           )

@@ -36,3 +36,18 @@ nav {
 .table th {
   border-top: none;
 }
+
+div.field.has-error {
+  border: 1px solid #f8d7da;
+  border-radius: 5px;
+}
+
+select.has-error {
+  border: 2px solid #f8d7da;
+}
+
+.field-error {
+  color: #721c24;
+  font-style: italic;
+  font-size: 12px;
+}

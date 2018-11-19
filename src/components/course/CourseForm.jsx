@@ -10,6 +10,7 @@ const propTypes = {
   allAuthors: PropTypes.arrayOf(PropTypes.object).isRequired,
   handleOnSave: PropTypes.func.isRequired,
   handleOnChange: PropTypes.func.isRequired,
+  handleOnFocus: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
   errors: PropTypes.shape()
 };
@@ -19,7 +20,7 @@ const defaultProps = {
 };
 
 const CourseForm = ({
-  course, allAuthors, handleOnSave, handleOnChange, isLoading, errors
+  course, allAuthors, handleOnSave, handleOnChange, handleOnFocus, isLoading, errors
 }) => (
   <form>
     <TextInput
@@ -27,6 +28,8 @@ const CourseForm = ({
       label="Title"
       value={course.title}
       onChange={handleOnChange}
+      onFocus={handleOnFocus}
+      placeholder="eg. Android Fundamentals..."
       error={errors.title} />
     <SelectInput
       name="authorId"
@@ -35,18 +38,23 @@ const CourseForm = ({
       defaultOption="Select Author"
       options={allAuthors}
       onChange={handleOnChange}
+      onFocus={handleOnFocus}
       error={errors.authorId} />
     <TextInput
       name="category"
       label="category"
       value={course.category}
       onChange={handleOnChange}
+      onFocus={handleOnFocus}
+      placeholder="eg. Mobile, UI/UX..."
       error={errors.category} />
     <TextInput
         name="length"
         label="length"
         value={course.length}
         onChange={handleOnChange}
+        onFocus={handleOnFocus}
+        placeholder="eg. 4:59"
         error={errors.length} />
     <input
      type="submit"
