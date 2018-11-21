@@ -23,7 +23,11 @@ const CourseList = ({ courses, handleDelete }) => (
     <tbody>
       {courses
         .map(course => (
-          <CourseListRow key={course.id} course={course} handleDelete={handleDelete} />
+          <CourseListRow
+            key={course.id}
+            course={course}
+            handleDelete={handleDelete}
+            />
         ))
       }
     </tbody>

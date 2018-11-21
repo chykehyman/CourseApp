@@ -1,6 +1,8 @@
+import toastr from 'toastr';
+
 import * as types from '../constants/actionTypes';
 import coursesApi from '../../api/mockCourseApi';
-import ajaxCallLoader from './ajaxCallLoader';
+import { fetchLoader, saveLoader } from './ajaxCallLoader';
 
 const loadCoursesSuccess = courses => (
   {
@@ -39,14 +41,14 @@ const deleteCourseSuccess = courseId => (
 
 export const loadCourses = () => (
   (dispatch) => {
-    dispatch(ajaxCallLoader(true));
+    dispatch(fetchLoader(true));
     return coursesApi.getAllCourses()
       .then((courses) => {
         dispatch(loadCoursesSuccess(courses));
-        dispatch(ajaxCallLoader(false));
+        dispatch(fetchLoader(false));
       })
       .catch((error) => {
-        dispatch(ajaxCallLoader(false));
+        dispatch(fetchLoader(false));
         throw (error);
       });
   }
@@ -54,14 +56,14 @@ export const loadCourses = () => (
 
 export const loadSingleCourse = courseId => (
   (dispatch) => {
-    dispatch(ajaxCallLoader(true));
+    dispatch(fetchLoader(true));
     return coursesApi.getSingleCourse(courseId)
       .then((course) => {
         dispatch(loadSingleCourseSuccess(course));
-        dispatch(ajaxCallLoader(false));
+        dispatch(fetchLoader(false));
       })
       .catch((error) => {
-        dispatch(ajaxCallLoader(false));
+        dispatch(fetchLoader(false));
         throw (error);
       });
   }
@@ -69,7 +71,7 @@ export const loadSingleCourse = courseId => (
 
 export const saveCourse = course => (
   (dispatch) => {
-    dispatch(ajaxCallLoader(true));
+    dispatch(saveLoader(true));
     return coursesApi.saveCourse(course)
       .then((savedCourse) => {
         if (course.id) {
@@ -77,31 +79,30 @@ export const saveCourse = course => (
         } else {
           dispatch(createCourseSuccess(savedCourse));
         }
-        dispatch(ajaxCallLoader(false));
+        dispatch(saveLoader(false));
       })
       .catch((error) => {
-        dispatch(ajaxCallLoader(false));
+        dispatch(saveLoader(false));
         throw (error);
       });
   }
 );
 
 export const deleteCourse = courseId => (
-  (dispatch) => {
-    dispatch(ajaxCallLoader(true));
-    return coursesApi.deleteCourse(courseId)
+  dispatch => (
+    coursesApi.deleteCourse(courseId)
       .then(() => {
         dispatch(deleteCourseSuccess(courseId));
-        dispatch(ajaxCallLoader(false));
+        toastr.clear();
+        toastr.success('Course deleted successfully');
       })
       .catch((error) => {
-        dispatch(ajaxCallLoader(false));
         throw (error);
-      });
-  }
+      })
+  )
 );
 
-export const coursesPageChange = page => (
+export const pageChange = page => (
   dispatch => dispatch({
     type: types.COURSES_PAGE_CHANGE,
     page

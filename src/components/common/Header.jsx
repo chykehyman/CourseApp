@@ -5,10 +5,11 @@ import { Link } from 'react-router-dom';
 
 
 const propTypes = {
-  numberOfCoures: PropTypes.number.isRequired
+  numberOfCoures: PropTypes.number.isRequired,
+  numberOfAuthors: PropTypes.number.isRequired
 };
 
-const Header = ({ numberOfCoures }) => (
+const Header = ({ numberOfCoures, numberOfAuthors }) => (
   <nav>
     <Link to="/" className="nav-link" activeclassname="active">Home</Link>
     {' | '}
@@ -18,12 +19,19 @@ const Header = ({ numberOfCoures }) => (
       <span className="badge badge-secondary">{numberOfCoures}</span>
     </Link>
     {' | '}
+    <Link to="/authors" className="nav-link" activeclassname="active">
+      Authors
+      {' '}
+      <span className="badge badge-secondary">{numberOfAuthors}</span>
+    </Link>
+    {' | '}
     <Link to="/about" className="nav-link" activeclassname="active">About</Link>
   </nav>
 );
 
-const mapStateToProps = ({ courses: { allCourses } }) => ({
-  numberOfCoures: allCourses.length
+const mapStateToProps = ({ courses: { allCourses }, authors: { allAuthors } }) => ({
+  numberOfCoures: allCourses.length,
+  numberOfAuthors: allAuthors.length
 });
 
 Header.propTypes = propTypes;

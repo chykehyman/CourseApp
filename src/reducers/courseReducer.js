@@ -3,8 +3,10 @@ import initialState from '../store/initialState';
 
 export default (state = initialState.coursesState, action) => {
   switch (action.type) {
-    case type.ACTION_IN_PROGRESS:
-      return { ...state, isLoading: action.boolValue };
+    case type.FETCH_IN_PROGRESS:
+      return { ...state, isFetching: action.boolValue };
+    case type.SAVE_IN_PROGRESS:
+      return { ...state, isSaving: action.boolValue };
     case type.LOAD_COURSES_SUCCESS:
       return { ...state, allCourses: action.courses };
     case type.LOAD_SINGLE_COURSE_SUCCESS:

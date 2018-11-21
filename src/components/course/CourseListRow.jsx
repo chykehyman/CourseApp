@@ -18,7 +18,12 @@ const CourseListRow = ({ course, handleDelete }) => (
     <td>{course.category}</td>
     <td>{course.length}</td>
     <td>
-      <button type="button" onClick={() => handleDelete(course.id)} className="btn btn-danger">Delete</button>
+      <button
+        type="button"
+        onClick={() => handleDelete(course.id)}
+        className="btn btn-danger">
+        Delete
+      </button>
     </td>
   </tr>
 );
