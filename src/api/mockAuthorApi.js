@@ -63,12 +63,24 @@ class AuthorApi {
     });
   }
 
-  static deleteAuthor(authorId) {
+  static deleteAuthor(authorId, courses) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
+        if (courses.findIndex(course => course.authorId === authorId) >= 0) {
+          reject(new Error('Forbidden: Author already has a course'));
+        }
         const indexOfAuthorToDelete = authors.findIndex(author => author.id === authorId);
         authors.splice(indexOfAuthorToDelete, 1);
         resolve();
+      }, delay);
+    });
+  }
+
+  static getSingleAuthor(authorId) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        const indexOfCourseToDelete = authors.findIndex(author => author.id === authorId);
+        resolve(authors[indexOfCourseToDelete]);
       }, delay);
     });
   }

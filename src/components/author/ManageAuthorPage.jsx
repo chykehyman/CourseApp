@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import Loader from 'react-md-spinner';
 import toastr from 'toastr';
 
-import CourseForm from './CourseForm';
+import AuthorForm from './AuthorForm';
 import * as courseActions from '../../actions/creators/courseActions';
 import * as authorActions from '../../actions/creators/authorActions';
 
@@ -15,11 +15,12 @@ import { validateFormData } from '../../helpers/validations';
 
 const propTypes = {
   actions: PropTypes.shape({
-    loadSingleCourse: PropTypes.func.isRequired,
-    saveCourse: PropTypes.func.isRequired
+    loadSingleAuthor: PropTypes.func.isRequired,
+    saveAuthor: PropTypes.func.isRequired,
+    loadAuthors: PropTypes.func.isRequired
   }).isRequired,
-  course: PropTypes.shape({
-    selectedCourse: PropTypes.shape().isRequired,
+  author: PropTypes.shape({
+    selectedAuthor: PropTypes.shape().isRequired,
     isFetching: PropTypes.bool.isRequired,
     isSaving: PropTypes.bool.isRequired
   }).isRequired,
@@ -30,15 +31,12 @@ const propTypes = {
   history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired
 };
 
-class ManageCoursePage extends Component {
+class ManageAuthorPage extends Component {
   initialFormState = {
-    course: {
+    author: {
       id: '',
-      watchHref: '',
-      title: '',
-      authorId: '',
-      length: '',
-      category: ''
+      firstName: '',
+      lastName: ''
     },
     errors: {},
     isBlocking: false
@@ -50,18 +48,18 @@ class ManageCoursePage extends Component {
     const { match, actions } = this.props;
 
     if (typeof match.params.id !== 'undefined') {
-      actions.loadSingleCourse(match.params.id);
+      actions.loadSingleAuthor(match.params.id);
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    const { match, course: { selectedCourse } } = this.props;
-    const { course } = nextProps;
+    const { match, author: { selectedAuthor } } = this.props;
+    const { author } = nextProps;
     if (typeof match.params.id !== 'undefined') {
-      if (course.selectedCourse !== selectedCourse) {
+      if (author.selectedAuthor !== selectedAuthor) {
         this.setState(prevState => ({
           ...prevState,
-          course: nextProps.course.selectedCourse
+          author: nextProps.author.selectedAuthor
         }));
       }
     } else {
@@ -75,13 +73,13 @@ class ManageCoursePage extends Component {
     const { name, value } = event.target;
     this.setState(prevState => ({
       ...prevState,
-      course: { ...prevState.course, [name]: value },
+      author: { ...prevState.author, [name]: value },
       isBlocking: true
     }));
   };
 
-  isValid = (course) => {
-    const { errors, isValid } = validateFormData(course);
+  isValid = (author) => {
+    const { errors, isValid } = validateFormData(author);
     if (!isValid) {
       this.setState(() => ({
         errors
@@ -99,24 +97,23 @@ class ManageCoursePage extends Component {
 
   handleOnSave = (event) => {
     const { actions, history } = this.props;
-    const { course } = this.state;
+    const { author } = this.state;
 
     event.preventDefault();
 
-    if (this.isValid(course)) {
-      actions.saveCourse(course)
+    if (this.isValid(author)) {
+      actions.saveAuthor(author)
         .then(() => {
           this.setState(prevState => ({ isBlocking: !prevState }), () => {
-            toastr.success('Course Saved');
-            history.push('/courses');
+            history.push('/authors');
           });
         });
     }
   };
 
   render() {
-    const { course, errors, isBlocking } = this.state;
-    const { allAuthors, course: { isFetching, isSaving } } = this.props;
+    const { author, errors, isBlocking } = this.state;
+    const { allAuthors, author: { isFetching, isSaving } } = this.props;
     return (
       <Fragment>
         <Prompt
@@ -126,7 +123,7 @@ class ManageCoursePage extends Component {
           }
         />
         <div className="top-container">
-          <h1>Manage Course</h1>
+          <h1>Manage Author</h1>
         </div>
         {isFetching
           ? (
@@ -135,13 +132,12 @@ class ManageCoursePage extends Component {
             </div>
           )
           : (
-            <CourseForm
+            <AuthorForm
               allAuthors={allAuthors}
-              course={course}
+              author={author}
               handleOnChange={this.handleOnChange}
               handleOnSave={this.handleOnSave}
               handleOnFocus={this.handleOnFocus}
-              isFetching={isFetching}
               isSaving={isSaving}
               errors={errors} />
           )
@@ -152,14 +148,14 @@ class ManageCoursePage extends Component {
 }
 
 const mapStateToProps = state => ({
-  course: state.courses,
+  author: state.authors,
   allAuthors: state.authors.allAuthors
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ ...courseActions, ...authorActions }, dispatch)
+  actions: bindActionCreators(authorActions, dispatch)
 });
 
-ManageCoursePage.propTypes = propTypes;
+ManageAuthorPage.propTypes = propTypes;
 
-export default connect(mapStateToProps, mapDispatchToProps)(ManageCoursePage);
+export default connect(mapStateToProps, mapDispatchToProps)(ManageAuthorPage);

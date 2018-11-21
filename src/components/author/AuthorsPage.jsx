@@ -5,30 +5,30 @@ import PropTypes from 'prop-types';
 import Loader from 'react-md-spinner';
 import _ from 'lodash';
 
-import CourseList from './CourseList';
+import AuthorList from './AuthorList';
 import TablePagination from '../common/TablePagination';
-import * as courseActions from '../../actions/creators/courseActions';
+import * as authorActions from '../../actions/creators/authorActions';
 import pagination from '../../helpers/pagination';
 
 const propTypes = {
-  courses: PropTypes.shape({
-    allCourses: PropTypes.array.isRequired,
+  authors: PropTypes.shape({
+    allAuthors: PropTypes.array.isRequired,
     isFetching: PropTypes.bool.isRequired,
     pageCount: PropTypes.number.isRequired,
     pageSize: PropTypes.number.isRequired,
     currentPage: PropTypes.number.isRequired
   }).isRequired,
   actions: PropTypes.shape({
-    deleteCourse: PropTypes.func.isRequired,
+    deleteAuthor: PropTypes.func.isRequired,
     pageChange: PropTypes.func.isRequired
   }).isRequired,
   history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired
 };
 
-class CoursesPage extends Component {
+class AuthorsPage extends Component {
  actions = this.props.actions;
 
- componentWillUpdate({ courses: { pageSize, pageCount, currentPage } }) {
+ componentWillUpdate({ authors: { pageSize, pageCount, currentPage } }) {
    if (pageSize === 0 && currentPage > 1 && pageCount >= 1) {
      this.actions.pageChange(currentPage - 1);
    }
@@ -38,13 +38,13 @@ class CoursesPage extends Component {
    this.actions.pageChange(1);
  }
 
-  showAddCoursePage = () => {
+  showAddAuthorPage = () => {
     const { history } = this.props;
-    history.push('/course');
+    history.push('/author');
   };
 
-  handleOnCourseDelete = (courseId) => {
-    this.actions.deleteCourse(courseId);
+  handleOnAuthorDelete = (authorId) => {
+    this.actions.deleteAuthor(authorId);
   };
 
   handleOnPageChange = ({ selected }) => {
@@ -52,23 +52,23 @@ class CoursesPage extends Component {
     this.actions.pageChange(pageToLoad);
   }
 
-  renderCoursesTable = (paginatedCourses) => {
-    if (paginatedCourses.length > 0) {
+  renderAuthorsTable = (paginatedAuthors) => {
+    if (paginatedAuthors.length > 0) {
       return (
-        <CourseList
-          courses={paginatedCourses}
-          handleDelete={this.handleOnCourseDelete} />
+        <AuthorList
+          authors={paginatedAuthors}
+          handleDelete={this.handleOnAuthorDelete} />
       );
     }
     return (
-      <div>There are no available courses</div>
+      <div>There are no registered authors</div>
     );
   }
 
   render() {
     const {
-      courses: {
-        allCourses,
+      authors: {
+        allAuthors,
         isFetching,
         currentPage,
         pageCount
@@ -77,12 +77,12 @@ class CoursesPage extends Component {
     return (
       <div>
         <div className="top-container">
-          <h1>Courses</h1>
+          <h1>Authors</h1>
           <button
             type="button"
             className="btn btn-outline-primary add-course-button btn-sm"
-            onClick={this.showAddCoursePage}>
-            Add Course
+            onClick={this.showAddAuthorPage}>
+            Add Author
           </button>
         </div>
         {isFetching
@@ -91,9 +91,9 @@ class CoursesPage extends Component {
               <Loader size="30" className="loader-component" />
             </div>
           )
-          : this.renderCoursesTable(allCourses)
+          : this.renderAuthorsTable(allAuthors)
         }
-        {allCourses.length > 0 && (
+        {allAuthors.length > 0 && (
           <TablePagination
             pageCount={pageCount}
             currentPage={currentPage}
@@ -105,17 +105,17 @@ class CoursesPage extends Component {
   }
 }
 
-const mapStateToProps = ({ courses }) => {
-  const sortedCourses = _.sortBy(
-    [...courses.allCourses], course => course.title.toLowerCase()
+const mapStateToProps = ({ authors }) => {
+  const sortedAuthors = _.sortBy(
+    [...authors.allAuthors], author => author.firstName.toLowerCase()
   );
 
-  const data = pagination(sortedCourses, courses.currentPage);
+  const data = pagination(sortedAuthors, authors.currentPage);
 
   return ({
-    courses: {
-      ...courses,
-      allCourses: data.paginatedItems,
+    authors: {
+      ...authors,
+      allAuthors: data.paginatedItems,
       pageCount: data.totalPageCount,
       pageSize: data.pageItemsSize
     }
@@ -123,9 +123,9 @@ const mapStateToProps = ({ courses }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(courseActions, dispatch)
+  actions: bindActionCreators(authorActions, dispatch)
 });
 
-CoursesPage.propTypes = propTypes;
+AuthorsPage.propTypes = propTypes;
 
-export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage);
+export default connect(mapStateToProps, mapDispatchToProps)(AuthorsPage);

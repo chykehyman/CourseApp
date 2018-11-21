@@ -11,7 +11,7 @@ const propTypes = {
   handleOnSave: PropTypes.func.isRequired,
   handleOnChange: PropTypes.func.isRequired,
   handleOnFocus: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool.isRequired,
+  isSaving: PropTypes.bool.isRequired,
   errors: PropTypes.shape()
 };
 
@@ -20,7 +20,8 @@ const defaultProps = {
 };
 
 const CourseForm = ({
-  course, allAuthors, handleOnSave, handleOnChange, handleOnFocus, isLoading, errors
+  course, allAuthors, handleOnSave, handleOnChange,
+  handleOnFocus, isSaving, errors
 }) => (
   <form>
     <TextInput
@@ -59,7 +60,8 @@ const CourseForm = ({
     <input
      type="submit"
      className="btn btn-primary"
-     value={isLoading ? 'Saving' : 'Save'}
+     disabled={isSaving}
+     value={isSaving ? 'Saving...' : 'Save'}
      onClick={handleOnSave} />
   </form>
 );

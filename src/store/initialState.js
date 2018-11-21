@@ -2,10 +2,15 @@ export default {
   coursesState: {
     allCourses: [],
     selectedCourse: {},
-    isLoading: false,
+    isFetching: false,
+    isSaving: false,
     currentPage: 1
   },
   authorsState: {
-    allAuthors: []
+    allAuthors: [],
+    selectedAuthor: {},
+    isFetching: false,
+    isSaving: false,
+    currentPage: 1
   }
 };
