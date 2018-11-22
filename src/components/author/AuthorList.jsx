@@ -12,7 +12,7 @@ const AuthorList = ({ authors, handleDelete }) => (
   <table className="table table-hover">
     <thead>
       <tr>
-        <th>&nbsp;</th>
+        <th>ID</th>
         <th>First Name</th>
         <th>Last Name</th>
         <th>Action</th>
@@ -21,9 +21,9 @@ const AuthorList = ({ authors, handleDelete }) => (
     <tbody>
       {authors
         .map(author => (
-          <AuthorListRow 
-            key={author.id} 
-            author={author} 
+          <AuthorListRow
+            key={author.id}
+            author={author}
             handleDelete={handleDelete} />
         ))
       }

@@ -1,7 +1,10 @@
+* {
+  box-sizing: border-box;
+}
 body {
 margin: 0;
 padding: 0;
-box-sizing: border-box;
+font-family: 'Raleway', sans-serif;
 }
 
 nav {
@@ -50,4 +53,94 @@ select.has-error {
   color: #721c24;
   font-style: italic;
   font-size: 12px;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 10px;
+}
+
+.container-fluid {
+  border-bottom: 1px solid rgb(233, 236, 239);
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.pagination {
+  padding-left: 0;
+  margin: 20px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.pagination>li {
+  display: inline;
+
+}
+
+.pagination>li>a {
+  text-decoration: none;
+  cursor: pointer;
+  display: block;
+  margin: 5px 10px;
+  padding: 0 4px;
+}
+
+.pagination>.active>a, .pagination>.active>a:hover {
+  z-index: 3;
+  color: #fff;
+  cursor: default;
+  border-color: #007bff;
+  outline: none;
+}
+
+ul.pagination li.active {
+  background-color: #007bff;
+}
+ul.pagination li {
+  border-right: 1px solid #ddd;
+}
+
+.pagination>.disabled>a {
+  color: #777;
+  cursor: not-allowed;
+  background-color: #fff;
+  border-color: #ddd;
+  outline: none;
+}
+
+.main-content {
+  margin-top: 10px;
+}
+
+.nav-link {
+  color: #777;
+}
+
+p.lead .btn {
+  background-color: rgb(235, 102, 53);
+  border: none;
+}
+
+.fa-exclamation-triangle {
+  color: rgb(240, 103, 53);
+}
+
+h1.display-4, p, h2, th, td {
+color: #555
+}
+
+.no-items {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 60px;
+  justify-content: space-around;
+  height: 120px;
 }

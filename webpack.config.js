@@ -53,7 +53,7 @@ module.exports = (env, argv) => ({
         test: /\.(png|jpg|gif|woff|woff2|eot|ttf|otf|svg)$/,
         use: [
           {
-            loader: 'file-loader'
+            loader: 'file-loader?name=fonts/[name].[ext]'
           }
         ]
       }

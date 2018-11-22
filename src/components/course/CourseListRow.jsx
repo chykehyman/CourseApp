@@ -11,9 +11,9 @@ const propTypes = {
 const CourseListRow = ({ course, handleDelete }) => (
   <tr>
     <td>
-      <a href={course.watchHref} target="_blank" rel="noopener noreferrer">Watch</a>
+      <a href={course.watchHref} className="btn btn-outline-secondary btn-sm" target="_blank" rel="noopener noreferrer">Watch</a>
     </td>
-    <td><Link to={`/course/${course.id}`}>{course.title}</Link></td>
+    <td><Link to={`/courses/${course.id}`}>{course.title}</Link></td>
     <td>{course.authorId}</td>
     <td>{course.category}</td>
     <td>{course.length}</td>
@@ -21,7 +21,7 @@ const CourseListRow = ({ course, handleDelete }) => (
       <button
         type="button"
         onClick={() => handleDelete(course.id)}
-        className="btn btn-danger">
+        className="btn btn-outline-danger btn-sm">
         Delete
       </button>
     </td>

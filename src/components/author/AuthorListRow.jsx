@@ -10,14 +10,14 @@ const propTypes = {
 
 const AuthorListRow = ({ author, handleDelete }) => (
   <tr>
-    <td><Link to={`/author/${author.id}`}>{author.id}</Link></td>
+    <td><Link to={`/authors/${author.id}`}>{author.id}</Link></td>
     <td>{author.firstName}</td>
     <td>{author.lastName}</td>
     <td>
       <button
         type="button"
         onClick={() => handleDelete(author.id)}
-        className="btn btn-danger">
+        className="btn btn-outline-danger btn-sm">
         Delete
       </button>
     </td>

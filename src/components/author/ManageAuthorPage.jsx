@@ -4,10 +4,8 @@ import { Prompt } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import Loader from 'react-md-spinner';
-import toastr from 'toastr';
 
 import AuthorForm from './AuthorForm';
-import * as courseActions from '../../actions/creators/courseActions';
 import * as authorActions from '../../actions/creators/authorActions';
 
 import { validateFormData } from '../../helpers/validations';
@@ -47,7 +45,7 @@ class ManageAuthorPage extends Component {
   componentDidMount() {
     const { match, actions } = this.props;
 
-    if (typeof match.params.id !== 'undefined') {
+    if (match.params.id !== 'add') {
       actions.loadSingleAuthor(match.params.id);
     }
   }
@@ -55,7 +53,7 @@ class ManageAuthorPage extends Component {
   componentWillReceiveProps(nextProps) {
     const { match, author: { selectedAuthor } } = this.props;
     const { author } = nextProps;
-    if (typeof match.params.id !== 'undefined') {
+    if (match.params.id !== 'add') {
       if (author.selectedAuthor !== selectedAuthor) {
         this.setState(prevState => ({
           ...prevState,

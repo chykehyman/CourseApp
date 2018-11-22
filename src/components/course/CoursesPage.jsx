@@ -6,8 +6,10 @@ import Loader from 'react-md-spinner';
 import _ from 'lodash';
 
 import CourseList from './CourseList';
+import NoItems from '../common/NoItems';
 import TablePagination from '../common/TablePagination';
 import * as courseActions from '../../actions/creators/courseActions';
+import { COURSES_PAGE_CHANGE as actionType } from '../../actions/constants/actionTypes';
 import pagination from '../../helpers/pagination';
 
 const propTypes = {
@@ -35,12 +37,12 @@ class CoursesPage extends Component {
  }
 
  componentWillUnmount() {
-   this.actions.pageChange(1);
+   this.actions.pageChange(1, actionType);
  }
 
   showAddCoursePage = () => {
     const { history } = this.props;
-    history.push('/course');
+    history.push('/courses/add');
   };
 
   handleOnCourseDelete = (courseId) => {
@@ -49,7 +51,7 @@ class CoursesPage extends Component {
 
   handleOnPageChange = ({ selected }) => {
     const pageToLoad = selected + 1;
-    this.actions.pageChange(pageToLoad);
+    this.actions.pageChange(pageToLoad, actionType);
   }
 
   renderCoursesTable = (paginatedCourses) => {
@@ -60,9 +62,7 @@ class CoursesPage extends Component {
           handleDelete={this.handleOnCourseDelete} />
       );
     }
-    return (
-      <div>There are no available courses</div>
-    );
+    return <NoItems displayText="There are no available courses" />;
   }
 
   render() {
@@ -77,7 +77,7 @@ class CoursesPage extends Component {
     return (
       <div>
         <div className="top-container">
-          <h1>Courses</h1>
+          <h2>Courses</h2>
           <button
             type="button"
             className="btn btn-outline-primary add-course-button btn-sm"

@@ -10,7 +10,7 @@ const propTypes = {
 };
 
 const TablePagination = ({ pageCount, currentPage, handlePageChange }) => (
-  <div className="text-center">
+  <div className="pagination-container">
     <ReactPaginate
       breakLabel="..."
       breakClassName="break-me"
