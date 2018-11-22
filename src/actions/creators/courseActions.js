@@ -1,8 +1,10 @@
-import toastr from 'toastr';
+import toast from '../../helpers/toast';
 
 import * as types from '../constants/actionTypes';
 import coursesApi from '../../api/mockCourseApi';
-import { fetchLoader, saveLoader } from './ajaxCallLoader';
+import { fetchLoader, saveLoader } from './common';
+
+export { pageChange } from './common';
 
 const loadCoursesSuccess = courses => (
   {
@@ -76,8 +78,10 @@ export const saveCourse = course => (
       .then((savedCourse) => {
         if (course.id) {
           dispatch(updateCourseSuccess(savedCourse));
+          toast.success('Course updated successfully')
         } else {
           dispatch(createCourseSuccess(savedCourse));
+          toast.success('Course added successfully');
         }
         dispatch(saveLoader(false));
       })
@@ -93,18 +97,10 @@ export const deleteCourse = courseId => (
     coursesApi.deleteCourse(courseId)
       .then(() => {
         dispatch(deleteCourseSuccess(courseId));
-        toastr.clear();
-        toastr.success('Course deleted successfully');
+        toast.success('Course deleted successfully');
       })
       .catch((error) => {
         throw (error);
       })
   )
-);
-
-export const pageChange = page => (
-  dispatch => dispatch({
-    type: types.COURSES_PAGE_CHANGE,
-    page
-  })
 );

@@ -14,18 +14,22 @@ import NoPageFound from './components/common/NotFoundPage';
 const Routes = () => (
   <BrowserRouter>
     <Fragment>
-      <Header />
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/about" component={AboutPage} />
-        <Route exact path="/course/:id" component={ManageCoursePage} />
-        <Route exact path="/course" component={ManageCoursePage} />
-        <Route exact path="/courses" component={CoursesPage} />
-        <Route exact path="/author/:id" component={ManageAuthorPage} />
-        <Route exact path="/author" component={ManageAuthorPage} />
-        <Route exact path="/authors" component={AuthorsPage} />
-        <Route component={NoPageFound} />
-      </Switch>
+      <div className="container-fluid">
+        <Header />
+      </div>
+      <div className="container main-content">
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/about" component={AboutPage} />
+          <Route exact path="/courses/:id" component={ManageCoursePage} />
+          <Route exact path="/courses/add" component={ManageCoursePage} />
+          <Route exact path="/courses" component={CoursesPage} />
+          <Route exact path="/authors/:id" component={ManageAuthorPage} />
+          <Route exact path="/authors/add" component={ManageAuthorPage} />
+          <Route exact path="/authors" component={AuthorsPage} />
+          <Route component={NoPageFound} />
+        </Switch>
+      </div>
     </Fragment>
   </BrowserRouter>
 );

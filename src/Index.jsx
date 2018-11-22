@@ -31,9 +31,7 @@ store.dispatch(loadAuthors());
 
 ReactDOM.render(
   <Provider store={store}>
-    <div className="container">
-      <Routes />
-    </div>
+    <Routes />
   </Provider>,
   document.getElementById('app')
 );

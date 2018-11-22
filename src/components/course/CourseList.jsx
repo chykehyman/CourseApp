@@ -12,7 +12,7 @@ const CourseList = ({ courses, handleDelete }) => (
   <table className="table table-hover">
     <thead>
       <tr>
-        <th>&nbsp;</th>
+        <th>Link</th>
         <th>Title</th>
         <th>Author</th>
         <th>Category</th>

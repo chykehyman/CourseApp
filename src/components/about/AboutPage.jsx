@@ -2,10 +2,10 @@ import React, { Fragment } from 'react';
 
 
 const AboutPage = () => (
-  <Fragment>
-    <h1>About Us</h1>
+  <div className="jumbotron">
+    <h1 className="display-4">About Us</h1>
     <p>The application uses react, redux and other libraries</p>
-  </Fragment>
+  </div>
 );
 
 export default AboutPage;

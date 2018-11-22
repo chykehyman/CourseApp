@@ -10,3 +10,10 @@ export const saveLoader = boolValue => ({
   type: types.SAVE_IN_PROGRESS,
   boolValue
 });
+
+export const pageChange = (page, type) => (
+  dispatch => dispatch({
+    type,
+    page
+  })
+);

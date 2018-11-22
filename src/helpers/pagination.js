@@ -1,5 +1,5 @@
 const pagination = (items, currentPage) => {
-  const PAGE_LIMIT = 2;
+  const PAGE_LIMIT = 3;
   const offset = Math.ceil((currentPage - 1) * PAGE_LIMIT);
   const totalItemCount = items.length;
   const itemsArray = Object.assign([], items);

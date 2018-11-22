@@ -4,7 +4,6 @@ import { Prompt } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import Loader from 'react-md-spinner';
-import toastr from 'toastr';
 
 import CourseForm from './CourseForm';
 import * as courseActions from '../../actions/creators/courseActions';
@@ -49,7 +48,7 @@ class ManageCoursePage extends Component {
   componentDidMount() {
     const { match, actions } = this.props;
 
-    if (typeof match.params.id !== 'undefined') {
+    if (match.params.id !== 'add') {
       actions.loadSingleCourse(match.params.id);
     }
   }
@@ -57,7 +56,7 @@ class ManageCoursePage extends Component {
   componentWillReceiveProps(nextProps) {
     const { match, course: { selectedCourse } } = this.props;
     const { course } = nextProps;
-    if (typeof match.params.id !== 'undefined') {
+    if (match.params.id !== 'add') {
       if (course.selectedCourse !== selectedCourse) {
         this.setState(prevState => ({
           ...prevState,
@@ -107,7 +106,6 @@ class ManageCoursePage extends Component {
       actions.saveCourse(course)
         .then(() => {
           this.setState(prevState => ({ isBlocking: !prevState }), () => {
-            toastr.success('Course Saved');
             history.push('/courses');
           });
         });
@@ -126,7 +124,7 @@ class ManageCoursePage extends Component {
           }
         />
         <div className="top-container">
-          <h1>Manage Course</h1>
+          <h2>Manage Course</h2>
         </div>
         {isFetching
           ? (
