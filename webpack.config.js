@@ -4,22 +4,45 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
+const prodEntryPoint = path.resolve(__dirname, './src/Index.jsx');
+const devEntryPoint = [
+  'react-dev-utils/webpackHotDevClient', prodEntryPoint
+];
+
+const prodLoader = [MiniCssExtractPlugin.loader, 'css-loader'];
+const styleLoader = (
+  process.env.NODE_ENV !== 'production' ? ['css-hot-loader', ...prodLoader] : prodLoader
+);
+
+const htmlPlugin = new HtmlWebPackPlugin({
+  template: './public/index.html',
+  filename: 'index.html',
+  favicon: './public/favicon.ico',
+  inject: 'body'
+});
+
+let hotFlag = true;
+if (process.env.NODE_ENV === 'production') hotFlag = false;
+
 
 module.exports = (env, argv) => ({
-  entry: [
-    'react-dev-utils/webpackHotDevClient',
-    path.resolve(__dirname, './src/Index.jsx')
-  ],
+  devtool: argv.mode === 'production' ? 'inline-source-map' : 'cheap-module-eval-source-map',
+  entry: argv.mode === 'production' ? prodEntryPoint : devEntryPoint,
   output: {
     path: path.resolve(__dirname, './build'),
     filename: '[name].[hash].js'
   },
   devServer: {
-    contentBase: path.join(__dirname, 'public'),
+    contentBase: path.join(__dirname, 'build'),
     compress: true,
-    hot: true,
     overlay: true,
-    historyApiFallback: true
+    hot: hotFlag,
+    noInfo: true,
+    historyApiFallback: true,
+    port: 8000,
+    proxy: {
+      '/api': 'http://localhost:4000'
+    }
   },
   module: {
     rules: [
@@ -35,11 +58,7 @@ module.exports = (env, argv) => ({
       },
       {
         test: /\.(css|scss)$/,
-        use: [
-          'css-hot-loader',
-          MiniCssExtractPlugin.loader,
-          'css-loader'
-        ]
+        use: styleLoader
       },
       {
         test: /\.html$/,
@@ -68,13 +87,10 @@ module.exports = (env, argv) => ({
   },
   plugins: [
     new CleanWebpackPlugin('build', {}),
-    new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebPackPlugin({
-      template: './public/index.html',
-      filename: './index.html'
-    }),
+    argv.mode !== 'production' ? new webpack.HotModuleReplacementPlugin() : () => {},
+    htmlPlugin,
     new MiniCssExtractPlugin({
-      filename: argv.mode === 'production' ? 'stlye.[hash].css' : '[name].css',
+      filename: argv.mode === 'production' ? 'style.[hash].css' : '[name].css',
       chunkFilename: 'style.[id].css'
     })
   ]

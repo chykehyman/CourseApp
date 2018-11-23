@@ -78,7 +78,7 @@ export const saveCourse = course => (
       .then((savedCourse) => {
         if (course.id) {
           dispatch(updateCourseSuccess(savedCourse));
-          toast.success('Course updated successfully')
+          toast.success('Course updated successfully');
         } else {
           dispatch(createCourseSuccess(savedCourse));
           toast.success('Course added successfully');

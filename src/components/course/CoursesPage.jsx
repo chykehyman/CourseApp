@@ -8,6 +8,7 @@ import _ from 'lodash';
 import CourseList from './CourseList';
 import NoItems from '../common/NoItems';
 import TablePagination from '../common/TablePagination';
+import TopSection from '../common/TopSection';
 import * as courseActions from '../../actions/creators/courseActions';
 import { COURSES_PAGE_CHANGE as actionType } from '../../actions/constants/actionTypes';
 import pagination from '../../helpers/pagination';
@@ -76,15 +77,10 @@ class CoursesPage extends Component {
     } = this.props;
     return (
       <div>
-        <div className="top-container">
-          <h2>Courses</h2>
-          <button
-            type="button"
-            className="btn btn-outline-primary add-course-button btn-sm"
-            onClick={this.showAddCoursePage}>
-            Add Course
-          </button>
-        </div>
+        <TopSection
+          pageTitle="Courses"
+          buttonLabel="Add Course"
+          redirectFunc={this.showAddCoursePage} />
         {isFetching
           ? (
             <div className="loader-container">
