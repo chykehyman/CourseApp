@@ -4,8 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:dev": "webpack-dev-server --mode development --open",
-    "start:prod": "webpack --mode production"
+    "start": "node build/server.js",
+    "start:prod": "npm run build:prod && npm start",
+    "start:dev": "concurrently \"npm run build:dev:server\" \"npm run build:dev:client\"",
+    "build:dev": "npm run build:dev:client && npm run build:dev:server",
+    "build:dev:client": "webpack-dev-server --mode development",
+    "build:dev:server": "nodemon server.js --exec babel-node",
+    "build:prod:client": "webpack --mode production",
+    "build:prod:server": "babel server.js -d build/",
+    "build:prod": "npm run build:prod:client && npm run build:prod:server",
+    "heroku-postbuild": "npm run build:prod"
   },
   "repository": {
     "type": "git",
@@ -20,6 +28,8 @@
   "homepage": "https://github.com/chykehyman/CourseApp#readme",
   "dependencies": {
     "bootstrap": "^4.1.3",
+    "compression": "^1.7.3",
+    "express": "^4.16.4",
     "file-loader": "^2.0.0",
     "lodash": "^4.17.11",
     "prop-types": "^15.6.2",
@@ -31,10 +41,13 @@
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
+    "serve-favicon": "^2.5.0",
     "toastr": "^2.1.4"
   },
   "devDependencies": {
+    "@babel/cli": "^7.1.5",
     "@babel/core": "^7.1.2",
+    "@babel/node": "^7.0.0",
     "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
@@ -42,6 +55,7 @@
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.4",
     "clean-webpack-plugin": "^0.1.19",
+    "concurrently": "^4.1.0",
     "css-hot-loader": "^1.4.2",
     "css-loader": "^1.0.1",
     "eslint": "^5.8.0",
@@ -54,6 +68,7 @@
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.4.4",
     "node-sass": "^4.10.0",
+    "nodemon": "^1.18.6",
     "postcss-loader": "^3.0.0",
     "react-dev-utils": "^6.1.1",
     "react-hot-loader": "^4.3.12",

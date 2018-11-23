@@ -14,10 +14,9 @@ if (env === 'production') {
   middleware = applyMiddleware(thunk);
 }
 
-const configureStore = initialSate => (
+const configureStore = () => (
   createStore(
     indexReducer,
-    initialSate,
     middleware
   )
 );
