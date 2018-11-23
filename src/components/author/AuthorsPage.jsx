@@ -8,6 +8,7 @@ import _ from 'lodash';
 import AuthorList from './AuthorList';
 import NoItems from '../common/NoItems';
 import TablePagination from '../common/TablePagination';
+import TopSection from '../common/TopSection';
 import * as authorActions from '../../actions/creators/authorActions';
 import { AUTHORS_PAGE_CHANGE as actionType } from '../../actions/constants/actionTypes';
 import pagination from '../../helpers/pagination';
@@ -28,17 +29,17 @@ const propTypes = {
 };
 
 class AuthorsPage extends Component {
- actions = this.props.actions;
+  actions = this.props.actions;
 
- componentWillUpdate({ authors: { pageSize, pageCount, currentPage } }) {
-   if (pageSize === 0 && currentPage > 1 && pageCount >= 1) {
-     this.actions.pageChange(currentPage - 1);
-   }
- }
+  componentWillUpdate({ authors: { pageSize, pageCount, currentPage } }) {
+    if (pageSize === 0 && currentPage > 1 && pageCount >= 1) {
+      this.actions.pageChange(currentPage - 1);
+    }
+  }
 
- componentWillUnmount() {
-   this.actions.pageChange(1, actionType);
- }
+  componentWillUnmount() {
+    this.actions.pageChange(1, actionType);
+  }
 
   showAddAuthorPage = () => {
     const { history } = this.props;
@@ -76,15 +77,10 @@ class AuthorsPage extends Component {
     } = this.props;
     return (
       <div>
-        <div className="top-container">
-          <h2>Authors</h2>
-          <button
-            type="button"
-            className="btn btn-outline-primary add-course-button btn-sm"
-            onClick={this.showAddAuthorPage}>
-            Add Author
-          </button>
-        </div>
+        <TopSection
+          pageTitle="Authors"
+          buttonLabel="Add Author"
+          redirectFunc={this.showAddAuthorPage} />
         {isFetching
           ? (
             <div className="loader-container">

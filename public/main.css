@@ -125,7 +125,12 @@ ul.pagination li {
 
 p.lead .btn {
   background-color: rgb(235, 102, 53);
+  color: white;
   border: none;
+}
+
+p.lead .btn:hover {
+  background-color: rgb(235, 85, 31);
 }
 
 .fa-exclamation-triangle {
