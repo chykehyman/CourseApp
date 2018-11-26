@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import Loader from 'react-md-spinner';
 
 import AuthorForm from './AuthorForm';
+import NotFoundPage from '../common/NotFoundPage';
 import * as authorActions from '../../actions/creators/authorActions';
 
 import { validateFormData } from '../../helpers/validations';
@@ -18,10 +19,10 @@ const propTypes = {
     loadAuthors: PropTypes.func.isRequired
   }).isRequired,
   author: PropTypes.shape({
-    selectedAuthor: PropTypes.shape().isRequired,
+    selectedAuthor: PropTypes.shape(),
     isFetching: PropTypes.bool.isRequired,
     isSaving: PropTypes.bool.isRequired
-  }).isRequired,
+  }),
   allAuthors: PropTypes.array.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape().isRequired
@@ -29,7 +30,19 @@ const propTypes = {
   history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired
 };
 
+const defaultProps = {
+  author: PropTypes.shape({
+    selectedAuthor: {},
+    isFetching: false,
+    isSaving: false
+  })
+};
+
 class ManageAuthorPage extends Component {
+  match = this.props.match;
+
+  history = this.props.history;
+
   initialFormState = {
     author: {
       id: '',
@@ -45,15 +58,15 @@ class ManageAuthorPage extends Component {
   componentDidMount() {
     const { match, actions } = this.props;
 
-    if (match.params.id !== 'add') {
+    if (this.match.params.id !== 'add') {
       actions.loadSingleAuthor(match.params.id);
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    const { match, author: { selectedAuthor } } = this.props;
+    const { author: { selectedAuthor } } = this.props;
     const { author } = nextProps;
-    if (match.params.id !== 'add') {
+    if (this.match.params.id !== 'add') {
       if (author.selectedAuthor !== selectedAuthor) {
         this.setState(prevState => ({
           ...prevState,
@@ -94,7 +107,7 @@ class ManageAuthorPage extends Component {
   }
 
   handleOnSave = (event) => {
-    const { actions, history } = this.props;
+    const { actions } = this.props;
     const { author } = this.state;
 
     event.preventDefault();
@@ -103,7 +116,7 @@ class ManageAuthorPage extends Component {
       actions.saveAuthor(author)
         .then(() => {
           this.setState(prevState => ({ isBlocking: !prevState }), () => {
-            history.push('/authors');
+            this.history.push('/authors');
           });
         });
     }
@@ -111,7 +124,12 @@ class ManageAuthorPage extends Component {
 
   render() {
     const { author, errors, isBlocking } = this.state;
-    const { allAuthors, author: { isFetching, isSaving } } = this.props;
+    const { allAuthors, author: { isFetching, isSaving, selectedAuthor } } = this.props;
+
+    if (!isFetching && this.match.params.id && typeof selectedAuthor === 'undefined') {
+      return <NotFoundPage history={this.history} />;
+    }
+
     return (
       <Fragment>
         <Prompt
@@ -155,5 +173,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 ManageAuthorPage.propTypes = propTypes;
+ManageAuthorPage.defaultProps = defaultProps;
 
 export default connect(mapStateToProps, mapDispatchToProps)(ManageAuthorPage);
