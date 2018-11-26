@@ -9,12 +9,22 @@ const port = process.env.PORT || 4000;
 app.use(compression());
 app.use(express.static('build'));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, './index.html'));
+app.get('/api', (request, response) => {
+  response.json({
+    status: 'Success',
+    message: 'Welcome to CourseApp API'
+  });
 });
 
-app.get('/api', (req, res) => {
-  res.json({ message: 'Api response' });
+app.all('/api*', (request, response) => {
+  response.status(404).json({
+    status: 'Failed',
+    message: 'API route does not exist. Redirect to /api'
+  });
+});
+
+app.get('*', (request, response) => {
+  response.sendFile(path.resolve(__dirname, './index.html'));
 });
 
 app.listen(port, () => console.log(`server started on port ${port}`));

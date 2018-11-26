@@ -1,16 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+
 const propTypes = {
-  location: PropTypes.shape({
-    pathname: PropTypes.string.isRequired
+  history: PropTypes.shape({
+    location: PropTypes.shape({
+      pathname: PropTypes.string.isRequired
+    }).isRequired
   }).isRequired
 };
 
-
-const NotFoundPage = ({ location }) => {
+const NotFoundPage = (props) => {
   const style = { fontWeight: 'bold' };
+  const { history: { location } } = props;
   const message = ` ${location.pathname} `;
+
   return (
     <div className="no-items">
       <p className="lead mb-4 mt-4 display-4">404</p>

@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import Loader from 'react-md-spinner';
 
 import CourseForm from './CourseForm';
+import NotFoundPage from '../common/NotFoundPage';
 import * as courseActions from '../../actions/creators/courseActions';
 import * as authorActions from '../../actions/creators/authorActions';
 
@@ -18,10 +19,10 @@ const propTypes = {
     saveCourse: PropTypes.func.isRequired
   }).isRequired,
   course: PropTypes.shape({
-    selectedCourse: PropTypes.shape().isRequired,
+    selectedCourse: PropTypes.shape(),
     isFetching: PropTypes.bool.isRequired,
     isSaving: PropTypes.bool.isRequired
-  }).isRequired,
+  }),
   allAuthors: PropTypes.array.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape().isRequired
@@ -29,7 +30,19 @@ const propTypes = {
   history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired
 };
 
+const defaultProps = {
+  course: PropTypes.shape({
+    selectedCourse: {},
+    isFetching: false,
+    isSaving: false
+  })
+};
+
 class ManageCoursePage extends Component {
+  match = this.props.match;
+
+  history = this.props.history;
+
   initialFormState = {
     course: {
       id: '',
@@ -46,10 +59,10 @@ class ManageCoursePage extends Component {
   state = { ...this.initialFormState };
 
   componentDidMount() {
-    const { match, actions } = this.props;
+    const { actions } = this.props;
 
-    if (match.params.id !== 'add') {
-      actions.loadSingleCourse(match.params.id);
+    if (this.match.params.id !== 'add') {
+      actions.loadSingleCourse(this.match.params.id);
     }
   }
 
@@ -97,7 +110,7 @@ class ManageCoursePage extends Component {
   }
 
   handleOnSave = (event) => {
-    const { actions, history } = this.props;
+    const { actions } = this.props;
     const { course } = this.state;
 
     event.preventDefault();
@@ -106,7 +119,7 @@ class ManageCoursePage extends Component {
       actions.saveCourse(course)
         .then(() => {
           this.setState(prevState => ({ isBlocking: !prevState }), () => {
-            history.push('/courses');
+            this.history.push('/courses');
           });
         });
     }
@@ -114,7 +127,12 @@ class ManageCoursePage extends Component {
 
   render() {
     const { course, errors, isBlocking } = this.state;
-    const { allAuthors, course: { isFetching, isSaving } } = this.props;
+    const { allAuthors, course: { isFetching, isSaving, selectedCourse } } = this.props;
+
+    if (!isFetching && this.match.params.id && typeof selectedCourse === 'undefined') {
+      return <NotFoundPage history={this.history} />;
+    }
+
     return (
       <Fragment>
         <Prompt
@@ -159,5 +177,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 ManageCoursePage.propTypes = propTypes;
+ManageCoursePage.defaultProps = defaultProps;
 
 export default connect(mapStateToProps, mapDispatchToProps)(ManageCoursePage);
