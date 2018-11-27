@@ -50,7 +50,6 @@ export const loadAuthors = () => (
       })
       .catch((error) => {
         dispatch(fetchLoader(false));
-        throw (error);
       });
   }
 );
@@ -65,7 +64,6 @@ export const loadSingleAuthor = authorId => (
       })
       .catch((error) => {
         dispatch(fetchLoader(false));
-        throw (error);
       });
   }
 );
@@ -86,7 +84,6 @@ export const saveAuthor = author => (
       })
       .catch((error) => {
         dispatch(saveLoader(false));
-        throw (error);
       });
   }
 );
@@ -101,7 +98,6 @@ export const deleteAuthor = authorId => (
       })
       .catch((error) => {
         toast.error(error.message);
-        throw (error);
       });
   }
 );
