@@ -3,7 +3,7 @@ import delay from '../helpers/delay';
 // This file mocks a web API by working with the hard-coded data below.
 // It uses setTimeout to simulate the delay of an AJAX call.
 // All calls return promises.
-const authors = [
+export const authors = [
   {
     id: 'cory-house',
     firstName: 'Cory',
@@ -69,6 +69,7 @@ class AuthorApi {
         if (courses.findIndex(course => course.authorId === authorId) >= 0) {
           reject(new Error('Forbidden: Author already has a course'));
         }
+
         const indexOfAuthorToDelete = authors.findIndex(author => author.id === authorId);
         authors.splice(indexOfAuthorToDelete, 1);
         resolve();
@@ -79,6 +80,10 @@ class AuthorApi {
   static getSingleAuthor(authorId) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
+        if (authors.findIndex(author => author.id === authorId) === -1) {
+          reject(new Error('Author does not exist'));
+        }
+
         const indexOfCourseToDelete = authors.findIndex(author => author.id === authorId);
         resolve(authors[indexOfCourseToDelete]);
       }, delay);

@@ -51,7 +51,6 @@ export const loadCourses = () => (
       })
       .catch((error) => {
         dispatch(fetchLoader(false));
-        throw (error);
       });
   }
 );
@@ -66,7 +65,6 @@ export const loadSingleCourse = courseId => (
       })
       .catch((error) => {
         dispatch(fetchLoader(false));
-        throw (error);
       });
   }
 );
@@ -87,7 +85,6 @@ export const saveCourse = course => (
       })
       .catch((error) => {
         dispatch(saveLoader(false));
-        throw (error);
       });
   }
 );
