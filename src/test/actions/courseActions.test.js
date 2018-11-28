@@ -1,12 +1,9 @@
-import thunk from 'redux-thunk';
-import configureMockStore from 'redux-mock-store';
+/* eslint-disable */
 import * as types from '../../actions/constants/actionTypes';
 import * as actions from '../../actions/creators/courseActions';
 import { courses, replaceAll } from '../../api/mockCourseApi';
 import courseMock from '../__mocks__/courseMock';
 
-const middleware = [thunk];
-const storeMock = configureMockStore(middleware);
 
 describe('course actions', () => {
   describe('load courses action', () => {

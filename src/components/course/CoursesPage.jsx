@@ -28,7 +28,7 @@ const propTypes = {
   history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired
 };
 
-class CoursesPage extends Component {
+export class CoursesPage extends Component {
  actions = this.props.actions;
 
  componentWillUpdate({ courses: { pageSize, pageCount, currentPage } }) {

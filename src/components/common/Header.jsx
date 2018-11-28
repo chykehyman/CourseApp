@@ -15,7 +15,7 @@ const style = {
   backgroundColor: 'whitesmoke', fontWeight: '600', color: 'rgb(248, 77, 15)'
 };
 
-const Header = ({ numberOfCourses, numberOfAuthors }) => (
+export const Header = ({ numberOfCourses, numberOfAuthors }) => (
   <div className="container header-container">
     <NavLink to="/">
       <img src={logo} alt="site_logo" width="150" height="50" />

@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CourseListRow component should render without crashing 1`] = `
+<tr>
+  <td>
+    <a
+      className="btn btn-outline-secondary btn-sm"
+      href="http://www.pluralsight.com/courses/react-flux-building-applications"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      Watch
+    </a>
+  </td>
+  <td>
+    <Link
+      replace={false}
+      to="/courses/react-flux-building-applications"
+    >
+      Building Applications in React and Flux
+    </Link>
+  </td>
+  <td>
+    cory-house
+  </td>
+  <td>
+    JavaScript
+  </td>
+  <td>
+    5:08
+  </td>
+  <td>
+    <button
+      className="btn btn-outline-danger btn-sm"
+      onClick={[Function]}
+      type="button"
+    >
+      Delete
+    </button>
+  </td>
+</tr>
+`;

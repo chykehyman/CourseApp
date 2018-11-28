@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NotFoundPage /> component test renders 404(not found page) component without crashing 1`] = `
+<div
+  className="no-items"
+>
+  <p
+    className="lead mb-4 mt-4 display-4"
+  >
+    404
+  </p>
+  <i
+    className="fa fa-exclamation-triangle fa-3x pb-3 d-block"
+  />
+  <p
+    className="lead"
+  >
+    Ooops!!!.. Page with url
+    <span
+      style={
+        Object {
+          "fontWeight": "bold",
+        }
+      }
+    >
+        
+    </span>
+    was not found
+  </p>
+</div>
+`;

@@ -38,7 +38,7 @@ const defaultProps = {
   })
 };
 
-class ManageCoursePage extends Component {
+export class ManageCoursePage extends Component {
   match = this.props.match;
 
   history = this.props.history;

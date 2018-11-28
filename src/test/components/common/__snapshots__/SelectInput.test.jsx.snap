@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SelectInput /> component test renders component without crashing 1`] = `
+<SelectInput
+  defaultOption=""
+  error=""
+  label=""
+  name=""
+  onChange={[MockFunction]}
+  onFocus={[MockFunction]}
+  options={
+    Array [
+      Object {
+        "firstName": "",
+        "id": "",
+        "lastName": "",
+      },
+    ]
+  }
+  value=""
+>
+  <div
+    className="form-group"
+  >
+    <div
+      className="field"
+    >
+      <label
+        htmlFor=""
+      />
+      <select
+        className="custom-select"
+        name=""
+        onChange={[MockFunction]}
+        onFocus={[MockFunction]}
+        value=""
+      >
+        <option
+          value=""
+        />
+        <option
+          key=""
+          value=""
+        >
+           
+        </option>
+      </select>
+    </div>
+  </div>
+</SelectInput>
+`;

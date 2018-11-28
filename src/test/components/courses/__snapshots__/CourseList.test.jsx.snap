@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CourseList /> component should render without crashing 1`] = `
+<table
+  className="table table-hover"
+>
+  <thead>
+    <tr>
+      <th>
+        Link
+      </th>
+      <th>
+        Title
+      </th>
+      <th>
+        Author
+      </th>
+      <th>
+        Category
+      </th>
+      <th>
+        Length
+      </th>
+      <th>
+        Actions
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <CourseListRow
+      course={
+        Object {
+          "authorId": "cory-house",
+          "category": "JavaScript",
+          "id": "react-flux-building-applications",
+          "length": "5:08",
+          "title": "Building Applications in React and Flux",
+          "watchHref": "http://www.pluralsight.com/courses/react-flux-building-applications",
+        }
+      }
+      handleDelete={[MockFunction]}
+      key="react-flux-building-applications"
+    />
+    <CourseListRow
+      course={
+        Object {
+          "authorId": "cory-house",
+          "category": "Software Practices",
+          "id": "clean-code",
+          "length": "3:10",
+          "title": "Clean Code: Writing Code for Humans",
+          "watchHref": "http://www.pluralsight.com/courses/writing-clean-code-humans",
+        }
+      }
+      handleDelete={[MockFunction]}
+      key="clean-code"
+    />
+  </tbody>
+</table>
+`;

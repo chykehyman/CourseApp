@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`courses page should render without crashing 1`] = `
+<div>
+  <TopSection
+    buttonLabel="Add Course"
+    pageTitle="Courses"
+    redirectFunc={[Function]}
+  />
+  <NoItems
+    displayText="There are no available courses"
+  />
+</div>
+`;

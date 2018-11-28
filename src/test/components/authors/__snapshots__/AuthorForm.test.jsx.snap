@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AuthorForm /> renders component without crashing 1`] = `
+<form>
+  <TextInput
+    error=""
+    label="First Name"
+    name="firstName"
+    onChange={[MockFunction]}
+    onFocus={[MockFunction]}
+    placeholder="eg. John"
+    value="Cory"
+  />
+  <TextInput
+    error=""
+    label="Last Name"
+    name="lastName"
+    onChange={[MockFunction]}
+    onFocus={[MockFunction]}
+    placeholder="eg. Doe"
+    value="House"
+  />
+  <input
+    className="btn btn-primary"
+    disabled={false}
+    onClick={[MockFunction]}
+    type="submit"
+    value="Save"
+  />
+</form>
+`;
