@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Routes /> renders entire app route components without crashing 1`] = `
+<BrowserRouter>
+  <div
+    className="container-fluid"
+  >
+    <Connect(Header) />
+  </div>
+  <div
+    className="container main-content"
+  >
+    <Switch>
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/"
+      />
+      <Route
+        component={[Function]}
+        path="/about"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/courses/:id"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/courses/add"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/courses"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/authors/:id"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/authors/add"
+      />
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/authors"
+      />
+      <Route
+        component={[Function]}
+      />
+    </Switch>
+  </div>
+</BrowserRouter>
+`;

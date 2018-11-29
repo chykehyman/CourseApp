@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<HomePage /> component test renders page header for profile component without crashing 1`] = `
+<div
+  className="jumbotron"
+>
+  <h1
+    className="display-4"
+  >
+    PluralSight Administration
+  </h1>
+  <p>
+    Manage and view available courses on pluralsight
+  </p>
+  <p
+    className="lead"
+  >
+    <Link
+      className="btn btn-lg"
+      replace={false}
+      to="/about"
+    >
+      Learn More
+    </Link>
+  </p>
+</div>
+`;

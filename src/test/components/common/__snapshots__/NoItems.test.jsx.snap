@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NoItems /> component test renders component without crashing 1`] = `
+<div
+  className="no-items"
+>
+  <i
+    className="fa fa-exclamation-triangle fa-3x pb-3 d-block"
+  />
+  <p
+    className="lead"
+  />
+</div>
+`;

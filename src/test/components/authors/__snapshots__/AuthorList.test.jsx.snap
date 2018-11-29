@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AuthorList component should render without crashing 1`] = `
+<table
+  className="table table-hover"
+>
+  <thead>
+    <tr>
+      <th>
+        ID
+      </th>
+      <th>
+        First Name
+      </th>
+      <th>
+        Last Name
+      </th>
+      <th>
+        Action
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <AuthorListRow
+      author={
+        Object {
+          "firstName": "Cory",
+          "id": "cory-house",
+          "lastName": "House",
+        }
+      }
+      handleDelete={[MockFunction]}
+      key="cory-house"
+    />
+    <AuthorListRow
+      author={
+        Object {
+          "firstName": "Scott",
+          "id": "scott-allen",
+          "lastName": "Allen",
+        }
+      }
+      handleDelete={[MockFunction]}
+      key="scott-allen"
+    />
+  </tbody>
+</table>
+`;

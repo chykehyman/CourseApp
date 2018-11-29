@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CourseForm /> renders component without crashing 1`] = `
+<form>
+  <TextInput
+    error=""
+    label="Title"
+    name="title"
+    onChange={[MockFunction]}
+    onFocus={[MockFunction]}
+    placeholder="eg. Android Fundamentals..."
+    value="Building Applications in React and Flux"
+  />
+  <SelectInput
+    defaultOption="Select Author"
+    error=""
+    label="Author"
+    name="authorId"
+    onChange={[MockFunction]}
+    onFocus={[MockFunction]}
+    options={Array []}
+    value="cory-house"
+  />
+  <TextInput
+    error=""
+    label="category"
+    name="category"
+    onChange={[MockFunction]}
+    onFocus={[MockFunction]}
+    placeholder="eg. Mobile, UI/UX..."
+    value="JavaScript"
+  />
+  <TextInput
+    error=""
+    label="length"
+    name="length"
+    onChange={[MockFunction]}
+    onFocus={[MockFunction]}
+    placeholder="eg. 4:59"
+    value="5:08"
+  />
+  <input
+    className="btn btn-primary"
+    disabled={false}
+    onClick={[MockFunction]}
+    type="submit"
+    value="Save"
+  />
+</form>
+`;

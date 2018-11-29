@@ -1,12 +1,9 @@
-import thunk from 'redux-thunk';
-import configureMockStore from 'redux-mock-store';
+/* eslint-disable */
 import * as types from '../../actions/constants/actionTypes';
 import * as actions from '../../actions/creators/authorActions';
 import { authors } from '../../api/mockAuthorApi';
 import { courses } from '../../api/mockCourseApi';
 
-const middleware = [thunk];
-const storeMock = configureMockStore(middleware);
 
 describe('author actions', () => {
   describe('load authors action', () => {

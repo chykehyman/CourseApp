@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TextInput /> component test renders component without crashing 1`] = `
+<TextInput
+  error=""
+  label=""
+  name=""
+  onChange={[MockFunction]}
+  onFocus={[MockFunction]}
+  placeholder=""
+  value=""
+>
+  <div
+    className="form-group"
+  >
+    <label
+      htmlFor=""
+    />
+    <div
+      className="field"
+    >
+      <input
+        autoComplete="off"
+        className="form-control"
+        id=""
+        name=""
+        onChange={[MockFunction]}
+        onFocus={[MockFunction]}
+        placeholder=""
+        type="text"
+        value=""
+      />
+    </div>
+  </div>
+</TextInput>
+`;

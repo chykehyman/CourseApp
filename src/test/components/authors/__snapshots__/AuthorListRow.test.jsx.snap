@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AuthorListRow component should render without crashing 1`] = `
+<tr>
+  <td>
+    <Link
+      replace={false}
+      to="/authors/cory-house"
+    >
+      cory-house
+    </Link>
+  </td>
+  <td>
+    Cory
+  </td>
+  <td>
+    House
+  </td>
+  <td>
+    <button
+      className="btn btn-outline-danger btn-sm"
+      onClick={[Function]}
+      type="button"
+    >
+      Delete
+    </button>
+  </td>
+</tr>
+`;

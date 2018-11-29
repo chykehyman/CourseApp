@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ManageAuthorPage /> component render component without crashing 1`] = `
+<Fragment>
+  <Prompt
+    message={[Function]}
+    when={false}
+  />
+  <div
+    className="top-container"
+  >
+    <h1>
+      Manage Author
+    </h1>
+  </div>
+  <AuthorForm
+    allAuthors={
+      Array [
+        Object {
+          "firstName": "Cory",
+          "id": "cory-house",
+          "lastName": "House",
+        },
+        Object {
+          "firstName": "Scott",
+          "id": "scott-allen",
+          "lastName": "Allen",
+        },
+      ]
+    }
+    author={
+      Object {
+        "firstName": "",
+        "id": "",
+        "lastName": "",
+      }
+    }
+    errors={Object {}}
+    handleOnChange={[Function]}
+    handleOnFocus={[Function]}
+    handleOnSave={[Function]}
+    isSaving={false}
+  />
+</Fragment>
+`;

@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TablePagination /> component test renders component without crashing 1`] = `
+<TablePagination
+  currentPage={1}
+  handlePageChange={[MockFunction]}
+  pageCount={1}
+>
+  <div
+    className="pagination-container"
+  >
+    <PaginationBoxView
+      activeClassName="active"
+      breakClassName="break-me"
+      breakLabel="..."
+      containerClassName="pagination"
+      disableInitialCallback={true}
+      disabledClassName="disabled"
+      initialPage={0}
+      marginPagesDisplayed={2}
+      nextClassName="next"
+      nextLabel="Next"
+      onPageChange={[MockFunction]}
+      pageCount={1}
+      pageRangeDisplayed={3}
+      previousClassName="previous"
+      previousLabel="Previous"
+      subContainerClassName="pages pagination"
+    >
+      <ul
+        className="pagination"
+      >
+        <li
+          className="previous disabled"
+        >
+          <a
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="button"
+            tabIndex="0"
+          >
+            Previous
+          </a>
+        </li>
+        <PageView
+          activeClassName="active"
+          key="0"
+          onClick={[Function]}
+          page={1}
+          selected={true}
+        >
+          <li
+            className="active"
+          >
+            <a
+              aria-current="page"
+              aria-label="Page 1 is your current page"
+              onClick={[Function]}
+              onKeyPress={[Function]}
+              role="button"
+              tabIndex="0"
+            >
+              1
+            </a>
+          </li>
+        </PageView>
+        <li
+          className="next disabled"
+        >
+          <a
+            onClick={[Function]}
+            onKeyPress={[Function]}
+            role="button"
+            tabIndex="0"
+          >
+            Next
+          </a>
+        </li>
+      </ul>
+    </PaginationBoxView>
+  </div>
+</TablePagination>
+`;

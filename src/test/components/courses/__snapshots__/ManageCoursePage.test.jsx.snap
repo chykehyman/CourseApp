@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ManageCoursePage /> component render component without crashing 1`] = `
+<Fragment>
+  <Prompt
+    message={[Function]}
+    when={false}
+  />
+  <div
+    className="top-container"
+  >
+    <h2>
+      Manage Course
+    </h2>
+  </div>
+  <CourseForm
+    course={
+      Object {
+        "authorId": "",
+        "category": "",
+        "id": "",
+        "length": "",
+        "title": "",
+        "watchHref": "",
+      }
+    }
+    errors={Object {}}
+    handleOnChange={[Function]}
+    handleOnFocus={[Function]}
+    handleOnSave={[Function]}
+    isFetching={false}
+    isSaving={false}
+  />
+</Fragment>
+`;
